@@ -6,10 +6,16 @@ interface IRequest {
 }
 
 class ShowUserProfileUseCase {
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(private usersRepository: IUsersRepository) { }
 
   execute({ user_id }: IRequest): User {
-    // Complete aqui
+    const userProfile = this.usersRepository.findById(user_id);
+
+    if (!userProfile) {
+      throw new Error("Id does not exists!");
+    }
+
+    return userProfile;
   }
 }
 
